@@ -7,7 +7,6 @@ public class RunGame {
 		GameField gameField;
 		gameField = new GameField();
 		gameField.startGame();
-		System.out.println("ゲームを終了します。");
-
+		System.out.println("ゲームを終了");
 	}
 }

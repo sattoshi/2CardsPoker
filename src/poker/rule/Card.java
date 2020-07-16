@@ -42,10 +42,43 @@ public class Card {
 
 	//ランクが連続しているか確認するメソッド
 	public boolean hasConsecutiveRank(Card card) {
-		if(getRank().getValue() == card.getRank().getValue() + 1 || getRank().getValue() == card.getRank().getValue() - 1) {
-			return true;
-		}else {
-			return false;
+		int card1RankValue = getRank().getValue();
+		int card2RankValue = card.getRank().getValue();
+
+		if(card1RankValue == 1) {
+			if(card2RankValue == 2 || card2RankValue == 13) {
+				return true;
+			}else {
+				return false;
+			}
+		}
+		else if( card1RankValue == 13 ) {
+			if(card2RankValue == 12 || card2RankValue == 1) {
+				return true;
+			}else {
+				return false;
+			}
+		}
+		else if (card2RankValue == 1 ){
+			if(card1RankValue == 2 || card1RankValue == 13) {
+				return true;
+			}else {
+				return false;
+			}
+		}
+		else if(card2RankValue == 13) {
+			if(card1RankValue == 12 || card1RankValue == 1) {
+				return true;
+			}else {
+				return false;
+			}
+		}
+		else {
+			if(card1RankValue == card2RankValue + 1 || card1RankValue == card2RankValue - 1) {
+				return true;
+			}else {
+				return false;
+			}
 		}
 	}
 
