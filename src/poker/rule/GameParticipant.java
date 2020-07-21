@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class GameParticipant {
 	private ArrayList<Card> handCards = new ArrayList<>();
 	private Hand hand;
-	private DiscoverHand discoverHand = new DiscoverHand();
 
 	//手札を追加する
 	public void addCard(Card card) {
@@ -15,16 +14,6 @@ public class GameParticipant {
 	//手札を返す
 	public ArrayList<Card> getHandCard(){
 		return handCards;
-	}
-
-	//役をセットする。
-	public void setHand(ArrayList<Card> handCards) {
-		this.hand =  discoverHand.getHand(handCards);
-	}
-
-	//役を返す
-	public Hand getHand() {
-		return hand;
 	}
 
 	//手札と役を表示する

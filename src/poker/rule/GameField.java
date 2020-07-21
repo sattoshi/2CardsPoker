@@ -5,33 +5,46 @@ import java.util.Collections;
 
 public class GameField {
 	GameParticipantInterface player;
-//	private Player player;
 	GameParticipantInterface dealer;
-//	private Dealer dealer;
 	private Deck deck = null;
 
 
 	 //ゲームスタート
 	 public void startGame() {
+		 Hand playerHand;
+		 Hand dealerHand;
 		//初期化
 		init();
 
-		//各プレイヤーの役をセット
-		player.setHand(player.getHandCard());
-		dealer.setHand(dealer.getHandCard());
-
 		//プレイヤーのカードと役の表示
 		System.out.println("===Player===");
-		player.openHand();
+		System.out.println("[手札]");
+
+		for(int i = 0; i < player.getHandCard().size(); i++) {
+			System.out.println(player.getHandCard().get(i).toString());
+		}
+
+		System.out.println("[役]");
+		playerHand = judgeHand(player.getHandCard());
+		System.out.println(playerHand.toString());
+
 		System.out.println();
 
 		//ディーラーのカードと役の表示
 		System.out.println("===Dealer===");
-		dealer.openHand();
+		System.out.println("[手札]");
+
+		for(int j = 0; j < dealer.getHandCard().size(); j++) {
+			System.out.println(dealer.getHandCard().get(j).toString());
+		}
+
+		System.out.println("[役]");
+		dealerHand = judgeHand(dealer.getHandCard());
+		System.out.println(dealerHand.toString());
 		System.out.println();
 
 		//役の比較
-		System.out.println(judgeWinner());
+		System.out.println(judgeWinner(playerHand,dealerHand));
 	 }
 
 	 //初期設定の処理
@@ -45,10 +58,40 @@ public class GameField {
 			dealer.addCard(deck.draw());
 		}
 	 }
+
+	 //役を判断するメソッド
+	 public Hand judgeHand(ArrayList<Card> handCards) {
+			Hand result;
+
+			Card card1 = handCards.get(0);
+			Card card2 = handCards.get(1);
+
+			//ストレートフラッシュ
+			if(card1.hasConsecutiveRank(card2) && card1.hasSameSuit(card2)) {
+				result = Hand.StraightFlush;
+			}
+			//ペア
+			else if(card1.hasSameRank(card2)) {
+				result =  Hand.Pair;
+			}
+			//ストレート
+			else if(card1.hasConsecutiveRank(card2)) {
+				result = Hand.Straight;
+			}
+			//フラッシュ
+			else if(card1.hasSameSuit(card2)) {
+				result = Hand.Flush;
+			}
+			//ハイカード
+			else {
+				result = Hand.HiCard;
+			}
+			return result;
+		}
+
+
 	 //勝敗を判断するメソッド
-	 public String judgeWinner() {
-		Hand playerHand = player.getHand();
-		Hand dealerHand = dealer.getHand();
+	 public String judgeWinner(Hand playerHand ,Hand dealerHand) {
 
 		if(playerHand.getValue() > dealerHand.getValue()) {
 			return "You Win!!";

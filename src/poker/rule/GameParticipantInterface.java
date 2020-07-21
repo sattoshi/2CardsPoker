@@ -8,10 +8,6 @@ public interface GameParticipantInterface {
 
 	ArrayList<Card> getHandCard();
 
-	void setHand(ArrayList<Card> handCards);
-
-	Hand getHand();
-
 	void openHand();
 
 }
